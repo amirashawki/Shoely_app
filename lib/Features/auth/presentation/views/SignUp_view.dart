@@ -1,119 +1,114 @@
-// import 'package:docnow_app/Features/auth/presentation/views/widgets/Sign_With_%20Google.dart';
-// import 'package:docnow_app/Features/auth/presentation/views/widgets/bottom_text.dart';
-// import 'package:docnow_app/Features/auth/presentation/views/widgets/custom_raw.dart';
-// import 'package:docnow_app/Features/auth/presentation/views/widgets/custom_text_field.dart';
-// import 'package:docnow_app/Features/auth/presentation/views/widgets/scaffold_auth.dart';
-// import 'package:docnow_app/Features/auth/presentation/views/widgets/show_email_phone.dart';
-// import 'package:docnow_app/core/utils/app_color.dart';
-// import 'package:docnow_app/core/utils/app_images.dart';
-// import 'package:docnow_app/core/utils/app_router.dart';
-// import 'package:docnow_app/core/widgets/custom_button.dart';
-// import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shoely_app/Features/auth/presentation/views/widgets/agree_terms%20&conditions.dart' show AgreeTermsAndConditions;
+import 'package:shoely_app/Features/auth/presentation/views/widgets/sign_with_%20social.dart';
+import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_divider.dart';
+import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_raw.dart';
+import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_text_field.dart';
+import 'package:shoely_app/core/utils/app_color.dart';
+import 'package:shoely_app/core/utils/app_images.dart';
+import 'package:shoely_app/core/utils/app_router.dart';
+import 'package:shoely_app/core/widgets/custom_button.dart';
 
-// class SignUpView extends StatelessWidget {
-//   const SignUpView({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return ScaffoldAuth(
-//       child: SingleChildScrollView(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             SizedBox(height: 33),
-//             Text(
-//               'Sign Up',
-//               style: TextStyle(
-//                 fontSize: 24,
-//                 color: AppColor.kprimaryColor,
-//                 fontWeight: FontWeight.w500,
-//               ),
-//             ),
-//             SizedBox(height: 16),
-//             Text(
-//               'Please enter your information to create a'
-//               ' new account. ',
-//               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-//             ),
-//             SizedBox(height: 40),
+  @override
+  State<SignUpView> createState() => _SignUpViewState();
+}
 
-//             ShowEmailOrPhone(
-//               columnEmail: Column(
-//                 children: [
-//                   SizedBox(height: 42),
-//                   CustomTextFormField(
-//                     hintText: 'Full Name',
-//                     image: Assets.imagesFrame,
-//                   ),
-//                   SizedBox(height: 16),
-//                   CustomTextFormField(
-//                     hintText: 'Email',
-//                     image: Assets.imagesCall,
-//                   ),
-//                   SizedBox(height: 16),
-//                   CustomTextFormField(
-//                     hintText: 'passWord',
-//                     image: Assets.imagesLock,
-//                   ),
-//                   SizedBox(height: 16),
-//                   CustomTextFormField(
-//                     hintText: 'Confirm passWord',
-//                     image: Assets.imagesLock,
-//                   ),
-//                 ],
-//               ),
-//               columnPhone: Column(
-//                 children: [
-//                   SizedBox(height: 42),
-//                   CustomTextFormField(
-//                     hintText: 'Full Name',
-//                     image: Assets.imagesFrame,
-//                   ),
-//                   SizedBox(height: 16),
-//                   CustomTextFormField(
-//                     hintText: 'phone',
-//                     image: Assets.imagesCall,
-//                   ),
-//                   SizedBox(height: 16),
-//                   CustomTextFormField(
-//                     hintText: 'passWord',
-//                     image: Assets.imagesLock,
-//                   ),
-//                   SizedBox(height: 16),
-//                   CustomTextFormField(
-//                     hintText: 'Confirm passWord',
-//                     image: Assets.imagesLock,
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             SizedBox(height: 24),
+bool isShow = false;
 
-//             CustomButton(title: 'Sign Up'),
-//             SizedBox(height: 24),
-//             CustomRow(
-//               text1: 'Already have an account?',
-//               text2: 'Login',
-//               onTap: () {
-//                 GoRouter.of(context).pop(AppRouter.kLoginView);
-//               },
-//             ),
-//             SizedBox(height: 24),
-//             Image.asset(Assets.imagesDivider),
-//             SizedBox(height: 24),
-//             SignWithGoogleButton(),
-//             SizedBox(height: 40),
-//             BottomText(
-//               text1: 'By creating an account, you agree to our ',
-//               text2: 'Terms \n           and Conditions',
-//               text3: ' and ',
-//               text4: 'Privacy Policy',
-//             ),
-//             SizedBox(height: 48),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _SignUpViewState extends State<SignUpView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 21),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 120),
+              Center(
+                child: Text(
+                  'Create Account',
+
+                  style: TextStyle(
+                    fontSize: 28,
+                    color: AppColor.kprimaryColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              SizedBox(height: 4),
+              Center(
+                child: Text(
+                  'Let’s Create Account Together',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff707B81),
+                  ),
+                ),
+              ),
+              SizedBox(height: 40),
+              CustomTextFormField(
+                hintText: 'Enter your Name',
+                keyboardType: TextInputType.name,
+              ),
+              SizedBox(height: 15),
+
+              CustomTextFormField(
+                hintText: 'Enter your email',
+                keyboardType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 15),
+
+              CustomTextFormField(
+                hintText: 'Enter your password',
+                keyboardType: TextInputType.visiblePassword,
+                suffixIcon: Icon(
+                  Icons.remove_red_eye_outlined,
+                  color: Color(0xff707B81),
+                ),
+              ),
+              SizedBox(height: 15),
+              AgreeTermsAndConditions(),
+              SizedBox(height: 15),
+              CustomButton(title: 'Sign Up', verticalPadding: 14),
+              SizedBox(height: 15),
+              SizedBox(height: 15),
+              CustomRow(
+                text1: 'Already have an account?',
+                text2: 'Sign in',
+                onTap: () {
+                  GoRouter.of(context).pop(AppRouter.kLoginView);
+                },
+              ),
+              SizedBox(height: 20),
+              CustomDivider(),
+              SizedBox(height: 20),
+              SignWithSocialButton(
+                title: 'Sign In With Google',
+                image: Assets.imagesGoogle,
+              ),
+              SizedBox(height: 15),
+
+              SignWithSocialButton(
+                title: 'Sign In With Apple',
+                image: Assets.imagesApple,
+              ),
+              SizedBox(height: 15),
+              SignWithSocialButton(
+                title: 'Sign In With Facebook',
+                image: Assets.imagesFace,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+

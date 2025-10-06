@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/sign_with_%20social.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_divider.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_raw.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_text_field.dart';
 import 'package:shoely_app/core/utils/app_color.dart';
 import 'package:shoely_app/core/utils/app_images.dart';
+import 'package:shoely_app/core/utils/app_router.dart';
 import 'package:shoely_app/core/widgets/custom_button.dart';
 
 class LoginView extends StatefulWidget {
@@ -26,7 +28,7 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 80),
+              SizedBox(height: 120),
               Center(
                 child: Text(
                   'Hello Again!',
@@ -84,7 +86,13 @@ class _LoginViewState extends State<LoginView> {
               CustomButton(title: 'Sign In', verticalPadding: 14),
               SizedBox(height: 15),
               SizedBox(height: 15),
-              CustomRow(text1: 'Don’t have an account?', text2: 'Sign Up'),
+              CustomRow(
+                text1: 'Don’t have an account?',
+                text2: 'Sign Up',
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.kSingUpView);
+                },
+              ),
               SizedBox(height: 20),
               CustomDivider(),
               SizedBox(height: 20),
