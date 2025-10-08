@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694587553891",
+    "project_id": "shoely-app",
+    "storage_bucket": "shoely-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694587553891:android:fc9bd9bf8600d7d5262056",
+        "android_client_info": {
+          "package_name": "com.example.shoely_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeEf7q4ih_L7vf8o1S_Fzvx5OakM-wKE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
