@@ -12,6 +12,7 @@ import 'package:shoely_app/core/utils/app_color.dart';
 import 'package:shoely_app/core/utils/app_images.dart';
 import 'package:shoely_app/core/utils/app_router.dart';
 import 'package:shoely_app/core/widgets/custom_button.dart';
+import 'package:shoely_app/core/widgets/custom_password_textfield%20.dart';
 
 class SignUpViewBody extends StatefulWidget {
   const SignUpViewBody({super.key});
@@ -20,13 +21,14 @@ class SignUpViewBody extends StatefulWidget {
   State<SignUpViewBody> createState() => _SignUpViewBodyState();
 }
 
+class _SignUpViewBodyState extends State<SignUpViewBody> {
+  
 final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 final TextEditingController nameController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
-class _SignUpViewBodyState extends State<SignUpViewBody> {
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -78,15 +80,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ),
                 SizedBox(height: 15),
 
-                CustomTextFormField(
-                  hintText: 'Enter your password',
-                  controller: passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  suffixIcon: Icon(
-                    Icons.remove_red_eye_outlined,
-                    color: Color(0xff707B81),
-                  ),
-                ),
+                CustomPasswordTextField(),
                 SizedBox(height: 15),
                 AgreeTermsAndConditions(),
                 SizedBox(height: 15),
@@ -141,3 +135,4 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     );
   }
 }
+
