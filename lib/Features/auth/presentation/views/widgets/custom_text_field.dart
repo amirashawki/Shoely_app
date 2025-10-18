@@ -7,11 +7,11 @@ class CustomTextFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     this.onChanged,
-    this.validate,
     this.obscureText = false,
     this.suffixIcon,
     this.controller,
     this.keyboardType,
+    this.onSaved,
   });
   String hintText;
   TextInputType? keyboardType;
@@ -19,13 +19,18 @@ class CustomTextFormField extends StatelessWidget {
   bool? obscureText;
   TextEditingController? controller;
   Function(String)? onChanged;
-  String? Function(String?)? validate;
+  void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: AppColor.kprimaryColor,
       keyboardType: keyboardType,
-      validator: validate,
+      onSaved: onSaved,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Field is Requird';
+        }
+      },
       controller: controller,
       obscureText: obscureText!,
       decoration: InputDecoration(

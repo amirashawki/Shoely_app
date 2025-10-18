@@ -5,7 +5,7 @@ import 'package:shoely_app/core/services/firebase_auth_services.dart';
 
   final getIt = GetIt.instance;
 
-  void setup() {
+  void setupGetIt() {
     getIt.registerSingleton<FirebaseAuthServices>(FirebaseAuthServices());
     getIt.registerSingleton<AuthRepoImpl>(
       AuthRepoImpl(firebaseAuthServices: getIt<FirebaseAuthServices>()),
