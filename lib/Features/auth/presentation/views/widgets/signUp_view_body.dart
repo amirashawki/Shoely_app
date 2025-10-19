@@ -23,13 +23,13 @@ class SignUpViewBody extends StatefulWidget {
 }
 
 class _SignUpViewBodyState extends State<SignUpViewBody> {
-  
-final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-final TextEditingController nameController = TextEditingController();
-final TextEditingController emailController = TextEditingController();
-final TextEditingController passwordController = TextEditingController();
-late bool isAgreeTerms = false;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  late bool isAgreeTerms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +69,7 @@ late bool isAgreeTerms = false;
                 SizedBox(height: 40),
                 CustomTextFormField(
                   hintText: 'Enter your Name',
+                 
                   keyboardType: TextInputType.name,
                   controller: nameController,
                 ),
@@ -76,18 +77,29 @@ late bool isAgreeTerms = false;
 
                 CustomTextFormField(
                   hintText: 'Enter your email',
-
+                 
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email is required';
+                    }
+                    final emailRegex = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Please enter a valid email address';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 15),
 
-                CustomPasswordTextField(),
+                CustomPasswordTextField(passwordController: passwordController),
                 SizedBox(height: 15),
-                AgreeTermsAndConditions(onChanged: (value) {
-                  isAgreeTerms = value;
-                  
-                },),
+                AgreeTermsAndConditions(
+                  onChanged: (value) {
+                    isAgreeTerms = value;
+                  },
+                ),
                 SizedBox(height: 15),
                 CustomButton(
                   title: 'Sign Up',
@@ -96,13 +108,15 @@ late bool isAgreeTerms = false;
                     if (formKey.currentState!.validate()) {
                       if (isAgreeTerms) {
                         context.read<SignupCubit>().signUp(
-                          nameController.text,
-                          emailController.text,
-                          passwordController.text,
+                          nameController.text.trim(),
+                          emailController.text.trim(),
+                          passwordController.text.trim(),
                         );
                       } else {
                         errorSnackBar(
-                            context, 'You must agree to the terms and conditions');
+                          context,
+                          'You must agree to the terms and conditions',
+                        );
                       }
                     } else {
                       autovalidateMode = AutovalidateMode.always;
@@ -145,4 +159,3 @@ late bool isAgreeTerms = false;
     );
   }
 }
-

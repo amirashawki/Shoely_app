@@ -21,7 +21,9 @@ class FirebaseAuthServices {
       } else if (e.code == 'email-already-in-use') {
         throw CustomExceptions('The account already exists for that email.');
       } else if (e.code == 'network-request-failed') {
-        throw CustomExceptions('Check your internet connection and try again.');
+        throw CustomExceptions(
+          'Check your internet connection and33 try again.',
+        );
       } else {
         throw CustomExceptions(e.message ?? 'An unknown error occurred.');
       }

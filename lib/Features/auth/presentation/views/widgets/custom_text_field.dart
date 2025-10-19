@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     this.keyboardType,
     this.onSaved,
+    this.validator,
   });
   String hintText;
   TextInputType? keyboardType;
@@ -20,17 +21,14 @@ class CustomTextFormField extends StatelessWidget {
   TextEditingController? controller;
   Function(String)? onChanged;
   void Function(String?)? onSaved;
+  String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: AppColor.kprimaryColor,
       keyboardType: keyboardType,
-      onSaved: onSaved,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Field is Requird';
-        }
-      },
+
+      validator: validator,
       controller: controller,
       obscureText: obscureText!,
       decoration: InputDecoration(
