@@ -3,8 +3,8 @@ import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_check
 import 'package:shoely_app/core/utils/app_color.dart';
 
 class AgreeTermsAndConditions extends StatefulWidget {
-  const AgreeTermsAndConditions({super.key});
-
+  const  AgreeTermsAndConditions({super.key, required this.onChanged});
+  final  ValueChanged<bool> onChanged;
   @override
   State<AgreeTermsAndConditions> createState() =>
       _AgreeTermsAndConditionsState();
@@ -22,6 +22,7 @@ class _AgreeTermsAndConditionsState extends State<AgreeTermsAndConditions> {
           onChanged: (value) {
             setState(() {
               isAgree = value;
+              widget.onChanged(value);
             });
           },
         ),

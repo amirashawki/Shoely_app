@@ -8,6 +8,7 @@ import 'package:shoely_app/Features/auth/presentation/views/widgets/sign_with_%2
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_divider.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_raw.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_text_field.dart';
+import 'package:shoely_app/core/helper/error_snack_bar.dart';
 import 'package:shoely_app/core/utils/app_color.dart';
 import 'package:shoely_app/core/utils/app_images.dart';
 import 'package:shoely_app/core/utils/app_router.dart';
@@ -28,6 +29,7 @@ AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 final TextEditingController nameController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
+late bool isAgreeTerms = false;
 
   @override
   Widget build(BuildContext context) {
@@ -82,18 +84,26 @@ final TextEditingController passwordController = TextEditingController();
 
                 CustomPasswordTextField(),
                 SizedBox(height: 15),
-                AgreeTermsAndConditions(),
+                AgreeTermsAndConditions(onChanged: (value) {
+                  isAgreeTerms = value;
+                  
+                },),
                 SizedBox(height: 15),
                 CustomButton(
                   title: 'Sign Up',
                   verticalPadding: 14,
                   onTap: () {
                     if (formKey.currentState!.validate()) {
-                      context.read<SignupCubit>().signUp(
-                        nameController.text,
-                        emailController.text,
-                        passwordController.text,
-                      );
+                      if (isAgreeTerms) {
+                        context.read<SignupCubit>().signUp(
+                          nameController.text,
+                          emailController.text,
+                          passwordController.text,
+                        );
+                      } else {
+                        errorSnackBar(
+                            context, 'You must agree to the terms and conditions');
+                      }
                     } else {
                       autovalidateMode = AutovalidateMode.always;
                       setState(() {});

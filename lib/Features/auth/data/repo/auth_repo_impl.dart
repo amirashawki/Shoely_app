@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:shoely_app/Features/auth/data/models/user_model.dart';
 import 'package:shoely_app/Features/auth/domain/entites/user_entity.dart';
@@ -14,17 +16,20 @@ class AuthRepoImpl extends AuthRepo {
     String email,
     String password,
     String name,
-  ) async{
+  ) async {
     try {
-      var user =await firebaseAuthServices.createUserWithEmailAndPassword(
+      var user = await firebaseAuthServices.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       return right(UserModel.fromFirebase(user));
     } on CustomExceptions catch (e) {
       return left(ServerFailure(e.message));
-    }catch (e) {
-      return left(ServerFailure('An unexpected error occurred. Please try again.'));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}');
+      return left(
+        ServerFailure('An unexpected error occurred. Please try again.'),
+      );
     }
   }
 }
