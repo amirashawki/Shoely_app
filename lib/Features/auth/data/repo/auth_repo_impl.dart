@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:shoely_app/Features/auth/data/models/user_model.dart';
 import 'package:shoely_app/Features/auth/domain/entites/user_entity.dart';

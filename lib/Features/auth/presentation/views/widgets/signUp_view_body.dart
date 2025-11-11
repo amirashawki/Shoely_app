@@ -47,7 +47,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 Center(
                   child: Text(
                     'Create Account',
-
                     style: TextStyle(
                       fontSize: 28,
                       color: AppColor.kprimaryColor,
