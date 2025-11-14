@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-import 'package:shoely_app/Features/Splash/views/logo_view.dart';
 import 'package:shoely_app/Features/auth/presentation/views/SignUp_view.dart';
 import 'package:shoely_app/Features/auth/presentation/views/login_view.dart';
 
@@ -11,14 +10,14 @@ abstract class AppRouter {
   static final router = GoRouter(
     routes: [
       GoRoute(
-        path: '/',
+        path: kLoginView,
         builder: (context, state) {
           return LoginView();
         },
       ),
 
       GoRoute(
-        path: kSingUpView,
+        path: '/',
         builder: (context, state) {
           return SignUpView();
         },

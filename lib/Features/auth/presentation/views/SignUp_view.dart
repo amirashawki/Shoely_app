@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shoely_app/Features/auth/data/repo/auth_repo_impl.dart';
 import 'package:shoely_app/Features/auth/presentation/manager/signUp_cubit/signup_cubit.dart';
-import 'package:shoely_app/Features/auth/presentation/views/widgets/signUp_view_body.dart';
+import 'package:shoely_app/Features/auth/presentation/views/signUp_view_body.dart';
 import 'package:shoely_app/core/helper/error_snack_bar.dart';
 import 'package:shoely_app/core/services/get_it_services.dart';
 import 'package:shoely_app/core/utils/app_router.dart' show AppRouter;

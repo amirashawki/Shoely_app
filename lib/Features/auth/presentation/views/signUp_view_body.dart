@@ -1,41 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shoely_app/Features/auth/presentation/manager/signUp_cubit/signup_cubit.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/agree_terms%20&conditions.dart'
     show AgreeTermsAndConditions;
-import 'package:shoely_app/Features/auth/presentation/views/widgets/sign_with_%20social.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_divider.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_raw.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_text_field.dart';
-import 'package:shoely_app/core/helper/error_snack_bar.dart';
+import 'package:shoely_app/Features/auth/presentation/views/widgets/sign_with_%20social.dart';
 import 'package:shoely_app/core/utils/app_color.dart';
 import 'package:shoely_app/core/utils/app_images.dart';
 import 'package:shoely_app/core/utils/app_router.dart';
 import 'package:shoely_app/core/widgets/custom_button.dart';
 import 'package:shoely_app/core/widgets/custom_password_textfield%20.dart';
 
-class SignUpViewBody extends StatefulWidget {
+class SignUpViewBody extends StatelessWidget {
   const SignUpViewBody({super.key});
 
   @override
-  State<SignUpViewBody> createState() => _SignUpViewBodyState();
-}
-
-class _SignUpViewBodyState extends State<SignUpViewBody> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  late bool isAgreeTerms = false;
-
-  @override
   Widget build(BuildContext context) {
+    final signUpCubit = SignupCubit.get(context);
     return Form(
-      key: formKey,
-      autovalidateMode: autovalidateMode,
+      key: signUpCubit.formKey,
+      autovalidateMode: signUpCubit.autovalidateMode,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
@@ -68,16 +54,16 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 SizedBox(height: 40),
                 CustomTextFormField(
                   hintText: 'Enter your Name',
-                 
+
                   keyboardType: TextInputType.name,
-                  controller: nameController,
+                  controller: signUpCubit.nameController,
                 ),
                 SizedBox(height: 15),
 
                 CustomTextFormField(
                   hintText: 'Enter your email',
-                 
-                  controller: emailController,
+
+                  controller: signUpCubit.emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -92,11 +78,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ),
                 SizedBox(height: 15),
 
-                CustomPasswordTextField(passwordController: passwordController),
+                CustomPasswordTextField(
+                  passwordController: signUpCubit.passwordController,
+                ),
                 SizedBox(height: 15),
                 AgreeTermsAndConditions(
                   onChanged: (value) {
-                    isAgreeTerms = value;
+                    signUpCubit.isAgreeTerms = value;
                   },
                 ),
                 SizedBox(height: 15),
@@ -104,23 +92,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   title: 'Sign Up',
                   verticalPadding: 14,
                   onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      if (isAgreeTerms) {
-                        context.read<SignupCubit>().signUp(
-                          nameController.text.trim(),
-                          emailController.text.trim(),
-                          passwordController.text.trim(),
-                        );
-                      } else {
-                        errorSnackBar(
-                          context,
-                          'You must agree to the terms and conditions',
-                        );
-                      }
-                    } else {
-                      autovalidateMode = AutovalidateMode.always;
-                      setState(() {});
-                    }
+                    signUpCubit.vaildateUser(context);
                   },
                 ),
                 SizedBox(height: 15),
@@ -129,7 +101,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   text1: 'Already have an account?',
                   text2: 'Sign in',
                   onTap: () {
-                    GoRouter.of(context).pop(AppRouter.kLoginView);
+                    GoRouter.of(context).push(AppRouter.kLoginView);
                   },
                 ),
                 SizedBox(height: 20),

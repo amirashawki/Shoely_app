@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.shoely_app"
-    compileSdk = 35
+    compileSdk = 36
     ndkVersion = "27.0.12077973"
 
     compileOptions {
@@ -24,7 +24,7 @@ android {
 
    defaultConfig {
     applicationId = "com.example.shoely_app"
-    minSdk = 23
+    minSdk = flutter.minSdkVersion
     targetSdk = flutter.targetSdkVersion
     versionCode = flutter.versionCode
     versionName = flutter.versionName

@@ -1,120 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:shoely_app/Features/auth/presentation/views/widgets/sign_with_%20social.dart';
-import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_divider.dart';
-import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_raw.dart';
-import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_text_field.dart';
-import 'package:shoely_app/core/utils/app_color.dart';
-import 'package:shoely_app/core/utils/app_images.dart';
-import 'package:shoely_app/core/utils/app_router.dart';
-import 'package:shoely_app/core/widgets/custom_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoely_app/Features/auth/data/repo/auth_repo_impl.dart';
+import 'package:shoely_app/Features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
+import 'package:shoely_app/Features/auth/presentation/views/login_view_body.dart';
+import 'package:shoely_app/core/helper/error_snack_bar.dart';
+import 'package:shoely_app/core/services/get_it_services.dart';
+import 'package:shoely_app/core/widgets/custom_progress_hud.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
-}
-
-bool isShow = false;
-
-class _LoginViewState extends State<LoginView> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 21),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 120),
-              Center(
-                child: Text(
-                  'Hello Again!',
-
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: AppColor.kprimaryColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              SizedBox(height: 4),
-              Center(
-                child: Text(
-                  'Welcome Back You’ve Been Missed!',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff707B81),
-                  ),
-                ),
-              ),
-              SizedBox(height: 40),
-
-              CustomTextFormField(
-                hintText: 'Enter your email',
-                keyboardType: TextInputType.emailAddress,
-              ),
-              SizedBox(height: 15),
-
-              SizedBox(height: 12),
-              CustomTextFormField(
-                hintText: 'Enter your password',
-                keyboardType: TextInputType.visiblePassword,
-                suffixIcon: Icon(
-                  Icons.remove_red_eye_outlined,
-                  color: Color(0xff707B81),
-                ),
-              ),
-              SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Recovery Password',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff707B81),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
-              CustomButton(title: 'Sign In', verticalPadding: 14),
-              SizedBox(height: 15),
-              SizedBox(height: 15),
-              CustomRow(
-                text1: 'Don’t have an account?',
-                text2: 'Sign Up',
-                onTap: () {
-                  GoRouter.of(context).push(AppRouter.kSingUpView);
-                },
-              ),
-              SizedBox(height: 20),
-              CustomDivider(),
-              SizedBox(height: 20),
-              SignWithSocialButton(
-                title: 'Sign In With Google',
-                image: Assets.imagesGoogle,
-              ),
-              SizedBox(height: 15),
-
-              SignWithSocialButton(
-                title: 'Sign In With Apple',
-                image: Assets.imagesApple,
-              ),
-              SizedBox(height: 15),
-              SignWithSocialButton(
-                title: 'Sign In With Facebook',
-                image: Assets.imagesFace,
-              ),
-            ],
-          ),
-        ),
+      body: BlocProvider(
+        create: (context) => SignInCubit(getIt<AuthRepoImpl>()),
+        child: BlocConsumerSignIn(),
       ),
+    );
+  }
+}
+
+class BlocConsumerSignIn extends StatelessWidget {
+  const BlocConsumerSignIn({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<SignInCubit, SignInState>(
+      listener: (context, state) {
+        if (state is SignInFailure) {
+          errorSnackBar(context, state.error);
+        } else if (state is SignInSuccess) {
+          errorSnackBar(context, 'login success');
+        }
+      },
+      builder: (context, state) {
+        return CustomProgressHud(
+          inAsyncCall: state is SignInLoading ? true : false,
+          child: LoginViewBody(),
+        );
+      },
     );
   }
 }
