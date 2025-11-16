@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:go_router/go_router.dart';
 import 'package:shoely_app/Features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_divider.dart';
@@ -61,9 +60,9 @@ class LoginViewBody extends StatelessWidget {
               SizedBox(height: 15),
 
               SizedBox(height: 12),
-               CustomPasswordTextField(
-                  passwordController: signInCubit.passWordController,
-                ),
+              CustomPasswordTextField(
+                passwordController: signInCubit.passWordController,
+              ),
               SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -100,6 +99,9 @@ class LoginViewBody extends StatelessWidget {
               SizedBox(height: 20),
               SignWithSocialButton(
                 title: 'Sign In With Google',
+                onTap: () {
+                  signInCubit.signInWithGoogle();
+                },
                 image: Assets.imagesGoogle,
               ),
               SizedBox(height: 15),

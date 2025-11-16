@@ -16,6 +16,7 @@ class SignInCubit extends Cubit<SignInState> {
   TextEditingController passWordController = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   Future<void> signInWithEmailAndPassword() async {
+    emit(SignInLoading());
     var result = await authRepoImpl.signInWithEmailAndPassword(
       emailController.text.trim(),
       passWordController.text.trim(),
@@ -37,5 +38,17 @@ class SignInCubit extends Cubit<SignInState> {
     } else {
       autovalidateMode = AutovalidateMode.always;
     }
+  }
+  Future signInWithGoogle() async {
+    emit(SignInLoading());
+    var result = await authRepoImpl.signInWithGoogle();
+    result.fold(
+      (failure) {
+        emit(SignInFailure(error: failure.errMessge));
+      },
+      (user) {
+        emit(SignInSuccess(userEntity: user));
+      },
+    );
   }
 }

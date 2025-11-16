@@ -58,4 +58,19 @@ class AuthRepoImpl extends AuthRepo {
       );
     }
   }
+  
+  @override
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async{
+    try {
+      var user = await firebaseAuthServices.signInWithGoogle();
+      return right(UserModel.fromFirebase(user));
+    }  catch (e) {
+      log(
+        'Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}',
+      );
+      return left(
+        ServerFailure('An unexpected error occurred. Please try again.'),
+      );
+    }
+  }
 }
