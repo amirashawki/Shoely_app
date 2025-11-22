@@ -113,6 +113,9 @@ class LoginViewBody extends StatelessWidget {
               SizedBox(height: 15),
               SignWithSocialButton(
                 title: 'Sign In With Facebook',
+                onTap: () {
+                  signInCubit.signInWithFacebook();
+                },
                 image: Assets.imagesFace,
               ),
             ],

@@ -3,12 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:shoely_app/Features/auth/presentation/manager/signUp_cubit/signup_cubit.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/agree_terms%20&conditions.dart'
     show AgreeTermsAndConditions;
-import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_divider.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_raw.dart';
 import 'package:shoely_app/Features/auth/presentation/views/widgets/custom_text_field.dart';
-import 'package:shoely_app/Features/auth/presentation/views/widgets/sign_with_%20social.dart';
 import 'package:shoely_app/core/utils/app_color.dart';
-import 'package:shoely_app/core/utils/app_images.dart';
 import 'package:shoely_app/core/utils/app_router.dart';
 import 'package:shoely_app/core/widgets/custom_button.dart';
 import 'package:shoely_app/core/widgets/custom_password_textfield%20.dart';
@@ -29,7 +26,7 @@ class SignUpViewBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 120),
+                SizedBox(height: 150),
                 Center(
                   child: Text(
                     'Create Account',
@@ -105,23 +102,6 @@ class SignUpViewBody extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 20),
-                CustomDivider(),
-                SizedBox(height: 20),
-                SignWithSocialButton(
-                  title: 'Sign In With Google',
-                  image: Assets.imagesGoogle,
-                ),
-                SizedBox(height: 15),
-
-                SignWithSocialButton(
-                  title: 'Sign In With Apple',
-                  image: Assets.imagesApple,
-                ),
-                SizedBox(height: 15),
-                SignWithSocialButton(
-                  title: 'Sign In With Facebook',
-                  image: Assets.imagesFace,
-                ),
               ],
             ),
           ),
