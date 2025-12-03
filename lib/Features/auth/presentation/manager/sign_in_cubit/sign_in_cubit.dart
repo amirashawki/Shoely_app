@@ -39,6 +39,7 @@ class SignInCubit extends Cubit<SignInState> {
       autovalidateMode = AutovalidateMode.always;
     }
   }
+
   Future signInWithGoogle() async {
     emit(SignInLoading());
     var result = await authRepoImpl.signInWithGoogle();
@@ -51,9 +52,23 @@ class SignInCubit extends Cubit<SignInState> {
       },
     );
   }
-    Future signInWithFacebook() async {
+
+  Future signInWithFacebook() async {
     emit(SignInLoading());
     var result = await authRepoImpl.signInWithFacebook();
+    result.fold(
+      (failure) {
+        emit(SignInFailure(error: failure.errMessge));
+      },
+      (user) {
+        emit(SignInSuccess(userEntity: user));
+      },
+    );
+  }
+
+  Future signInWithGithub() async {
+    emit(SignInLoading());
+    var result = await authRepoImpl.signInWithGithub();
     result.fold(
       (failure) {
         emit(SignInFailure(error: failure.errMessge));

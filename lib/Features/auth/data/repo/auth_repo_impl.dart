@@ -39,7 +39,6 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
     String email,
     String password,
-  
   ) async {
     try {
       var user = await firebaseAuthServices.signInWithEmailAndPassword(
@@ -58,31 +57,40 @@ class AuthRepoImpl extends AuthRepo {
       );
     }
   }
-  
+
   @override
-  Future<Either<Failure, UserEntity>> signInWithGoogle() async{
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     try {
       var user = await firebaseAuthServices.signInWithGoogle();
       return right(UserModel.fromFirebase(user));
-    }  catch (e) {
-      log(
-        'Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}',
-      );
+    } catch (e) {
+      log('Exception in AuthRepoImpl.signInWithGoogle: ${e.toString()}');
       return left(
         ServerFailure('An unexpected error occurred. Please try again.'),
       );
     }
   }
-  
+
   @override
-  Future<Either<Failure, UserEntity>> signInWithFacebook()async {
+  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
     try {
       var user = await firebaseAuthServices.signInWithFacebook();
       return right(UserModel.fromFirebase(user));
-    }  catch (e) {
-      log(
-        'Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}',
+    } catch (e) {
+      log('Exception in AuthRepoImpl.signInWithFacebook: ${e.toString()}');
+      return left(
+        ServerFailure('An unexpected error occurred. Please try again.'),
       );
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithGithub() async {
+    try {
+      var user = await firebaseAuthServices.signInWithGitHub();
+      return right(UserModel.fromFirebase(user));
+    } catch (e) {
+      log('Exception in AuthRepoImpl.signInWithGithub: ${e.toString()}');
       return left(
         ServerFailure('An unexpected error occurred. Please try again.'),
       );

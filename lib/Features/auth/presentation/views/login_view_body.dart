@@ -107,8 +107,11 @@ class LoginViewBody extends StatelessWidget {
               SizedBox(height: 15),
 
               SignWithSocialButton(
-                title: 'Sign In With Apple',
-                image: Assets.imagesApple,
+                title: 'Sign In With Github',
+                image: Assets.imagesGethub,
+                onTap: () {
+                  signInCubit.signInWithGithub();
+                },
               ),
               SizedBox(height: 15),
               SignWithSocialButton(

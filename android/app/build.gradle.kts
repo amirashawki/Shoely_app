@@ -40,8 +40,10 @@ android {
 }
 
 flutter {
+  
     source = "../.."
 }
-dependencies{
- implementation 'com.facebook.android:facebook-login:latest.release'
- }
+dependencies {
+    implementation("com.facebook.android:facebook-login:latest.release")
+}
+
