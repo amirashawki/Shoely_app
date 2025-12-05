@@ -158,4 +158,8 @@ class FirebaseAuthServices {
       throw Exception('Failed to sign in with GitHub.');
     }
   }
+
+  Future deletUser() async {
+    await FirebaseAuth.instance.currentUser!.delete();
+  }
 }
