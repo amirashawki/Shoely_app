@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoely_app/Features/auth/data/repo/auth_repo_impl.dart';
 import 'package:shoely_app/Features/auth/domain/entites/user_entity.dart';
-
 part 'sign_in_state.dart';
 
 class SignInCubit extends Cubit<SignInState> {

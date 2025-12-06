@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shoely_app/core/services/database_services.dart';
 
 class FirestoreServices implements DatabaseServices {
-  @override
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  @override
   Future<void> addData({
     required String path,
     required Map<String, dynamic> data,
