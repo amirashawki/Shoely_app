@@ -9,4 +9,9 @@ class AppColor {
   static final Color ksCardBackground = const Color(0xFF1A2735);
   static final Color kTabBarDarkGradient = const Color(0xFF0A1420);
   static final Color kTabBarLightGradient = const Color(0xFFEDEDED);
+  static final List<Color> kLinearGradient = [
+    Color(0xFFFF8A00),
+    Color(0xFFFFC300),
+    Color(0xFFFF8A00),
+  ];
 }
