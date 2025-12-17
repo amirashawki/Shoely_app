@@ -31,7 +31,7 @@ class BlocConsumerSignUpViewBody extends StatelessWidget {
         if (state is SignupFailure) {
           errorSnackBar(context, state.error);
         } else if (state is SignupSuccess) {
-          GoRouter.of(context).pushReplacement(AppRouter.kLoginView);
+          GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
         }
       },
       builder: (context, state) {

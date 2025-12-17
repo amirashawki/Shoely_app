@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -9,7 +10,9 @@ import 'package:shoely_app/core/errors/exceptions.dart';
 import 'package:shoely_app/core/errors/failures.dart';
 import 'package:shoely_app/core/services/database_services.dart';
 import 'package:shoely_app/core/services/firebase_auth_services.dart';
+import 'package:shoely_app/core/services/shared_preferences_singleton.dart';
 import 'package:shoely_app/core/utils/backend_endpoint.dart';
+import 'package:shoely_app/core/utils/constants.dart';
 
 class AuthRepoImpl extends AuthRepo {
   FirebaseAuthServices firebaseAuthServices;
@@ -32,6 +35,7 @@ class AuthRepoImpl extends AuthRepo {
       );
       var userEntity = UserEntity(id: user.uid, name: name, email: email);
       await addUserDataToDb(user: userEntity);
+      await saveUserData(user: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
       if (user != null) {
@@ -62,6 +66,7 @@ class AuthRepoImpl extends AuthRepo {
         password: password,
       );
       var userEntity = await getUserDataFromDb(userId: user.uid);
+      saveUserData(user: userEntity);
       return right(userEntity);
     } on CustomExceptions catch (e) {
       return left(ServerFailure(e.message));
@@ -168,7 +173,7 @@ class AuthRepoImpl extends AuthRepo {
   Future<dynamic> addUserDataToDb({required UserEntity user}) async {
     await databaseServices.addData(
       path: BackendEndpoint.addUserPath,
-      data: user.toMap(),
+      data: UserModel.fromEntity(user).toMap(),
       documentId: user.id,
     );
   }
@@ -181,5 +186,11 @@ class AuthRepoImpl extends AuthRepo {
       documentId: userId,
     );
     return UserModel.fromJson(userData);
+  }
+
+  @override
+  Future saveUserData({required UserEntity user}) async {
+    var userData = jsonEncode(UserModel.fromEntity(user).toMap());
+    await SharedPreferencesSingleton.setString(kUserDataKey, userData);
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
 import 'package:go_router/go_router.dart';
 import 'package:shoely_app/Features/Splash/views/widgets/loading_dots.dart';
 import 'package:shoely_app/Features/Splash/views/widgets/logo_widget.dart';
+import 'package:shoely_app/core/services/firebase_auth_services.dart';
 import 'package:shoely_app/core/utils/app_router.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -41,8 +41,13 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward();
 
     // Navigate to login after 3 seconds
-    Timer(const Duration(seconds: 3), () {
-      GoRouter.of(context).push(AppRouter.kLoginView);
+    Timer(const Duration(seconds: 4), () {
+      var logIn = FirebaseAuthServices().isUserLoggedIn();
+      if (logIn) {
+        GoRouter.of(context).push(AppRouter.kHomeView);
+        return;
+      }
+      GoRouter.of(context).push(AppRouter.kSingUpView);
     });
   }
 

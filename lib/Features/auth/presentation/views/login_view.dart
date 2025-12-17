@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shoely_app/Features/auth/data/repo/auth_repo_impl.dart';
 import 'package:shoely_app/Features/auth/presentation/manager/sign_in_cubit/sign_in_cubit.dart';
 import 'package:shoely_app/Features/auth/presentation/views/login_view_body.dart';
 import 'package:shoely_app/core/helper/error_snack_bar.dart';
 import 'package:shoely_app/core/services/get_it_services.dart';
+import 'package:shoely_app/core/utils/app_router.dart';
 import 'package:shoely_app/core/widgets/custom_progress_hud.dart';
 
 class LoginView extends StatelessWidget {
@@ -13,6 +15,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: BlocProvider(
         create: (context) => SignInCubit(getIt<AuthRepoImpl>()),
         child: BlocConsumerSignIn(),
@@ -31,6 +34,7 @@ class BlocConsumerSignIn extends StatelessWidget {
         if (state is SignInFailure) {
           errorSnackBar(context, state.error);
         } else if (state is SignInSuccess) {
+          GoRouter.of(context).pushReplacement(AppRouter.kHomeView);
           errorSnackBar(context, 'login success');
         }
       },

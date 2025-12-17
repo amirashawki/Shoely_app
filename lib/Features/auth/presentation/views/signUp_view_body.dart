@@ -20,6 +20,7 @@ class SignUpViewBody extends StatelessWidget {
       key: signUpCubit.formKey,
       autovalidateMode: signUpCubit.autovalidateMode,
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 21),
