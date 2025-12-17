@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:shoely_app/Features/Splash/views/splash_view.dart';
 import 'package:shoely_app/Features/auth/presentation/views/SignUp_view.dart';
 import 'package:shoely_app/Features/auth/presentation/views/login_view.dart';
 import 'package:shoely_app/Features/home/presentation/views/home_view.dart';
@@ -26,7 +27,7 @@ abstract class AppRouter {
       GoRoute(
         path: '/',
         builder: (context, state) {
-          return HomeView();
+          return SplashScreen();
         },
       ),
       //   GoRoute(
